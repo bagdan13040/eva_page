@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя в день 8 Марта 💐</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Caveat&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0e8f8 50%, #f5eef8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(90deg, #6b5b95 0%, #7d6fa5 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(107, 91, 149, 0.3);
+            animation: slideDown 0.8s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: pulse 2.5s ease-in-out infinite;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2em;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        /* Контейнер */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Секция комплиментов */
+        .compliments-section {
+            margin-bottom: 200px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #5d4e80;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #6b5b95, #7d6fa5);
+            border-radius: 2px;
+        }
+
+        .compliments-grid {
+            display: none;
+        }
+
+        /* Карусель комплиментов */
+        .compliments-carousel {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            height: 240px;
+            perspective: 1000px;
+            padding: 0 80px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .compliment-card {
+            background: #f8f6fc;
+            padding: 30px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(107, 91, 149, 0.12);
+            border-left: 5px solid #b8a8d8;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: none;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transform: translateX(600px);
+            pointer-events: none;
+            left: 0;
+            top: 0;
+        }
+
+        .compliment-card:hover {
+            border-left-color: #6b5b95;
+        }
+
+        .compliment-card.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .compliment-card.prev {
+            opacity: 0;
+            transform: translateX(-600px);
+            z-index: 5;
+        }
+
+        .compliment-card.next {
+            opacity: 0;
+            transform: translateX(600px);
+            z-index: 5;
+        }
+
+        .compliment-emoji {
+            display: none;
+        }
+
+        .compliment-text {
+            color: #333;
+            font-size: 1.1em;
+            line-height: 1.8;
+            font-weight: 500;
+            font-family: 'Caveat', cursive;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        /* Кнопки навигации карусели */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #6b5b95 0%, #7d6fa5 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 91, 149, 0.3);
+            pointer-events: auto;
+            flex-shrink: 0;
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(107, 91, 149, 0.4);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Индикаторы карусели */
+        .carousel-indicators {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #b8a8d8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator:hover {
+            background: #7d6fa5;
+            transform: scale(1.3);
+        }
+
+        .carousel-indicator.active {
+            background: #6b5b95;
+            width: 24px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(107, 91, 149, 0.3);
+        }
+
+        /* Секция фотографий */
+        .gallery-section {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .gallery-grid {
+            position: relative;
+            width: 100%;
+            height: 1300px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0e8f8 100%);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: inset 0 0 30px rgba(107, 91, 149, 0.08);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .photo-placeholder {
+            position: absolute;
+            width: 180px;
+            height: 200px;
+            background: linear-gradient(135deg, #d4c7e8 0%, #c8bde3 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            cursor: pointer;
+            border: 5px solid #f8f6fc;
+            box-shadow: 0 8px 20px rgba(107, 91, 149, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: polaroidPop 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .photo-placeholder:nth-child(1) { animation-delay: 0.1s; }
+        .photo-placeholder:nth-child(2) { animation-delay: 0.2s; }
+        .photo-placeholder:nth-child(3) { animation-delay: 0.3s; }
+        .photo-placeholder:nth-child(4) { animation-delay: 0.4s; }
+        .photo-placeholder:nth-child(5) { animation-delay: 0.5s; }
+        .photo-placeholder:nth-child(6) { animation-delay: 0.6s; }
+
+        .photo-placeholder:hover {
+            transform: translateY(-5px) scale(1.08) rotate(0deg) !important;
+            box-shadow: 0 15px 35px rgba(107, 91, 149, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+            filter: brightness(1.1);
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 0.85em;
+            color: #5d4e80;
+            font-weight: bold;
+            background: rgba(248, 246, 252, 0.85);
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .photo-placeholder:hover .photo-label {
+            color: #6b5b95;
+            background: rgba(248, 246, 252, 1);
+        }
+
+        .gallery-info {
+            background: #f8f6fc;
+            padding: 20px;
+            border-radius: 10px;
+            color: #6a5a7a;
+            border-left: 5px solid #b8a8d8;
+            margin-top: 20px;
+        }
+
+        /* Секция пожеланий */
+        .wishes-section {
+            background: #f8f6fc;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(107, 91, 149, 0.12);
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+
+        .wishes-section:hover {
+            box-shadow: 0 12px 35px rgba(107, 91, 149, 0.2);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .wish-text {
+            color: #4a4a4a;
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+
+        .signature {
+            text-align: right;
+            font-size: 1.2em;
+            color: #6b5b95;
+            font-weight: bold;
+            margin-top: 30px;
+            font-style: italic;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8em;
+        }
+
+        /* Украшения */
+        .flower-decoration {
+            display: none;
+        }
+
+        /* SVG декорации */
+        .svg-decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .svg-flower-1 {
+            top: 8%;
+            left: 8%;
+            animation: floatDecoration 6s ease-in-out infinite;
+        }
+
+        .svg-flower-2 {
+            top: 12%;
+            right: 10%;
+            animation: floatDecoration 8s ease-in-out infinite reverse;
+        }
+
+        .svg-flower-3 {
+            top: 28%;
+            left: 5%;
+            animation: floatDecoration 9s ease-in-out infinite 0.5s;
+        }
+
+        .svg-flower-4 {
+            top: 78%;
+            right: 6%;
+            animation: floatDecoration 7s ease-in-out infinite 1.5s;
+        }
+
+        .svg-flower-5 {
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: floatDecoration 10s ease-in-out infinite 0.7s;
+        }
+
+        .svg-heart-1 {
+            top: 38%;
+            right: 8%;
+            animation: floatDecoration 7s ease-in-out infinite 1s;
+        }
+
+        .svg-heart-3 {
+            top: 58%;
+            right: 12%;
+            animation: floatDecoration 8s ease-in-out infinite 0.3s reverse;
+        }
+
+        .svg-heart-4 {
+            bottom: 22%;
+            left: 6%;
+            animation: floatDecoration 10s ease-in-out infinite 1.8s;
+        }
+
+        .svg-heart-5 {
+            top: 22%;
+            left: 22%;
+            animation: floatDecoration 7.5s ease-in-out infinite 1.2s;
+        }
+
+        .svg-heart-6 {
+            bottom: 18%;
+            right: 18%;
+            animation: floatDecoration 9s ease-in-out infinite 0.6s reverse;
+        }
+
+        .svg-star-1 {
+            top: 32%;
+            left: 14%;
+            animation: floatDecoration 7.5s ease-in-out infinite 0.8s;
+        }
+
+        .svg-star-2 {
+            bottom: 28%;
+            right: 5%;
+            animation: floatDecoration 8.5s ease-in-out infinite 1.3s reverse;
+        }
+
+        .svg-star-3 {
+            top: 68%;
+            left: 12%;
+            animation: floatDecoration 8s ease-in-out infinite 0.4s;
+        }
+
+        .svg-star-4 {
+            top: 45%;
+            right: 4%;
+            animation: floatDecoration 9.5s ease-in-out infinite 1.6s reverse;
+        }
+
+        .svg-flower-6 {
+            top: 42%;
+            left: 35%;
+            animation: floatDecoration 8s ease-in-out infinite 0.9s;
+        }
+
+        .svg-flower-7 {
+            top: 58%;
+            right: 35%;
+            animation: floatDecoration 9s ease-in-out infinite 1.1s reverse;
+        }
+
+        .svg-heart-7 {
+            top: 48%;
+            left: 40%;
+            animation: floatDecoration 7s ease-in-out infinite 0.5s;
+        }
+
+        .svg-heart-8 {
+            top: 52%;
+            right: 40%;
+            animation: floatDecoration 8.5s ease-in-out infinite 1.4s reverse;
+        }
+
+        .svg-star-5 {
+            left: 48%;
+            top: 62%;
+            animation: floatDecoration 8s ease-in-out infinite 0.7s;
+        }
+
+        .svg-star-6 {
+            right: 48%;
+            top: 38%;
+            animation: floatDecoration 9s ease-in-out infinite 1.9s reverse;
+        }
+
+        @keyframes floatDecoration {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        /* Более яркие анимации на элементах */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .compliment-emoji {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                box-shadow: 0 8px 25px rgba(107, 91, 149, 0.12);
+            }
+            50% {
+                box-shadow: 0 12px 35px rgba(107, 91, 149, 0.25);
+            }
+            100% {
+                box-shadow: 0 8px 25px rgba(107, 91, 149, 0.12);
+            }
+        }
+
+        .compliment-card.active {
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        /* Кнопка для добавления фото */
+        .action-button {
+            background: linear-gradient(90deg, #6b5b95 0%, #7d6fa5 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 91, 149, 0.3);
+            margin: 10px 5px;
+            display: inline-block;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(107, 91, 149, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .action-button:active {
+            transform: translateY(-1px);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Анимации */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #f8f6fc;
+            padding: 30px;
+            border: 3px solid #6b5b95;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(107, 91, 149, 0.2);
+            animation: slideUp 0.3s ease;
+        }
+
+        .close {
+            color: #6b5b95;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+
+        .close:hover {
+            color: #7d6fa5;
+        }
+
+        .modal input[type="text"],
+        .modal input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #d4c7e8;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .modal input[type="text"]:focus,
+        .modal input[type="file"]:focus {
+            outline: none;
+            border-color: #6b5b95;
+            box-shadow: 0 0 10px rgba(107, 91, 149, 0.2);
+        }
+
+        @keyframes polaroidPop {
+            from {
+                opacity: 0;
+                transform: scale(0.3) rotate(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Модальное окно для просмотра фото */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(75, 60, 100, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .photo-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .photo-modal-content img {
+            width: 100%;
+            height: 100%;
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(107, 91, 149, 0.5);
+        }
+
+        .photo-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #f0e8f8;
+            font-size: 36px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .photo-close:hover {
+            color: #6b5b95;
+            transform: scale(1.2);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Мобильная адаптация */
+        /* Планшеты и большие телефоны (до 768px) */
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 20px 20px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .compliment-text {
+                font-size: 1em;
+            }
+
+            .compliments-carousel {
+                height: 250px;
+                padding: 0 60px;
+            }
+
+            .carousel-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+
+            .carousel-indicators {
+                bottom: -50px;
+            }
+
+            .compliments-section {
+                margin-bottom: 150px;
+            }
+
+            .gallery-grid {
+                height: 1000px;
+                padding: 20px;
+            }
+
+            .photo-placeholder {
+                width: 140px;
+                height: 160px;
+            }
+
+            .wishes-section {
+                padding: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 25px;
+            }
+
+            .flower-decoration {
+                font-size: 1.5em;
+            }
+
+            .photo-close {
+                top: -35px;
+                font-size: 28px;
+            }
+
+            .svg-decoration {
+                opacity: 0.3;
+            }
+        }
+
+        /* Средние телефоны (до 480px) */
+        @media (max-width: 480px) {
+            header {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.95em;
+                letter-spacing: 0.5px;
+            }
+
+            .container {
+                padding: 15px 15px;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+                margin-bottom: 25px;
+            }
+
+            .compliments-section {
+                margin-bottom: 120px;
+            }
+
+            .compliment-text {
+                font-size: 1.54em;
+                line-height: 1.5;
+            }
+
+            .compliments-carousel {
+                height: 260px;
+                padding: 0 40px;
+                margin: 0 auto 30px;
+            }
+
+            .carousel-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+
+            .carousel-indicators {
+                bottom: -45px;
+                gap: 6px;
+            }
+
+            .carousel-indicator {
+                width: 6px;
+                height: 6px;
+            }
+
+            .carousel-indicator.active {
+                width: 20px;
+            }
+
+            .gallery-grid {
+                height: 700px;
+                padding: 15px;
+            }
+
+            .photo-placeholder {
+                width: 120px;
+                height: 140px;
+                font-size: 2.5em;
+            }
+
+            .photo-label {
+                font-size: 0.75em;
+                padding: 4px 8px;
+            }
+
+            .gallery-info {
+                padding: 15px;
+                font-size: 0.95em;
+            }
+
+            .action-button {
+                padding: 12px 24px;
+                font-size: 0.95em;
+            }
+
+            .wishes-section {
+                padding: 18px;
+            }
+
+            .wish-text {
+                font-size: 1.2em;
+                line-height: 1.6;
+                margin-bottom: 15px;
+            }
+
+            .signature {
+                font-size: 1.5em;
+                margin-top: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .close {
+                font-size: 24px;
+            }
+
+            .modal input[type="text"],
+            .modal input[type="file"] {
+                padding: 10px;
+                margin: 8px 0;
+            }
+
+            .photo-close {
+                top: -30px;
+                font-size: 24px;
+            }
+
+            .svg-decoration {
+                opacity: 0.25;
+            }
+        }
+
+        /* Маленькие телефоны (до 320px) */
+        @media (max-width: 320px) {
+            header {
+                padding: 20px 12px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+                margin-bottom: 5px;
+            }
+
+            .subtitle {
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+
+            .container {
+                padding: 12px 12px;
+            }
+
+            .section-title {
+                font-size: 1.1em;
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+            }
+
+            .compliments-section {
+                margin-bottom: 100px;
+            }
+
+            .compliment-text {
+                font-size: 1.4em;
+                line-height: 1.5;
+            }
+
+            .compliments-carousel {
+                height: 240px;
+                padding: 0 30px;
+                margin: 0 auto 25px;
+            }
+
+            .carousel-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 14px;
+            }
+
+            .carousel-indicators {
+                bottom: -40px;
+                gap: 5px;
+            }
+
+            .carousel-indicator {
+                width: 5px;
+                height: 5px;
+            }
+
+            .carousel-indicator.active {
+                width: 16px;
+            }
+
+            .gallery-grid {
+                height: 650px;
+                padding: 12px;
+                border-radius: 10px;
+            }
+
+            .photo-placeholder {
+                width: 100px;
+                height: 120px;
+                font-size: 2em;
+                border: 4px solid #f8f6fc;
+            }
+
+            .photo-label {
+                font-size: 0.7em;
+                padding: 3px 6px;
+            }
+
+            .gallery-info {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+
+            .action-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+                margin: 8px 3px;
+            }
+
+            .wishes-section {
+                padding: 15px;
+            }
+
+            .wish-text {
+                font-size: 1.1em;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .signature {
+                font-size: 1.3em;
+                margin-top: 15px;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 18px;
+                max-width: 100%;
+            }
+
+            .close {
+                font-size: 20px;
+                line-height: 16px;
+            }
+
+            .modal input[type="text"],
+            .modal input[type="file"] {
+                padding: 8px;
+                margin: 6px 0;
+                font-size: 0.9em;
+            }
+
+            .photo-close {
+                top: -25px;
+                font-size: 20px;
+            }
+
+            .svg-decoration {
+                opacity: 0.15;
+            }
+
+            .flower-decoration {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Декорации -->
+    <svg class="svg-decoration svg-flower-1" width="80" height="80" viewBox="0 0 80 80">
+        <circle cx="40" cy="40" r="8" fill="#b8a8d8"/>
+        <circle cx="40" cy="15" r="6" fill="#d4c7e8"/>
+        <circle cx="60" cy="25" r="6" fill="#d4c7e8"/>
+        <circle cx="65" cy="45" r="6" fill="#d4c7e8"/>
+        <circle cx="55" cy="62" r="6" fill="#d4c7e8"/>
+        <circle cx="35" cy="68" r="6" fill="#d4c7e8"/>
+        <circle cx="15" cy="58" r="6" fill="#d4c7e8"/>
+        <circle cx="10" cy="35" r="6" fill="#d4c7e8"/>
+        <circle cx="20" cy="18" r="6" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-flower-2" width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="10" fill="#c8bde3"/>
+        <path d="M 50 50 Q 70 40 85 35" stroke="#b8a8d8" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 50 50 Q 70 60 85 65" stroke="#b8a8d8" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 50 50 Q 30 40 15 35" stroke="#b8a8d8" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 50 50 Q 30 60 15 65" stroke="#b8a8d8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <svg class="svg-decoration svg-flower-3" width="70" height="70" viewBox="0 0 70 70">
+        <circle cx="35" cy="35" r="7" fill="#b8a8d8"/>
+        <circle cx="35" cy="12" r="5" fill="#d4c7e8"/>
+        <circle cx="53" cy="20" r="5" fill="#d4c7e8"/>
+        <circle cx="58" cy="40" r="5" fill="#d4c7e8"/>
+        <circle cx="50" cy="57" r="5" fill="#d4c7e8"/>
+        <circle cx="30" cy="62" r="5" fill="#d4c7e8"/>
+        <circle cx="12" cy="52" r="5" fill="#d4c7e8"/>
+        <circle cx="7" cy="30" r="5" fill="#d4c7e8"/>
+        <circle cx="17" cy="15" r="5" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-flower-4" width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="9" fill="#c8bde3"/>
+        <circle cx="45" cy="18" r="6" fill="#d4c7e8"/>
+        <circle cx="65" cy="28" r="6" fill="#d4c7e8"/>
+        <circle cx="72" cy="48" r="6" fill="#d4c7e8"/>
+        <circle cx="62" cy="68" r="6" fill="#d4c7e8"/>
+        <circle cx="40" cy="75" r="6" fill="#d4c7e8"/>
+        <circle cx="18" cy="65" r="6" fill="#d4c7e8"/>
+        <circle cx="10" cy="42" r="6" fill="#d4c7e8"/>
+        <circle cx="22" cy="22" r="6" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-1" width="70" height="70" viewBox="0 0 70 70">
+        <path d="M 35 60 C 20 50 10 40 10 28 C 10 18 18 10 25 10 C 30 10 35 14 35 14 C 35 14 40 10 45 10 C 52 10 60 18 60 28 C 60 40 50 50 35 60 Z" fill="#b8a8d8" opacity="0.8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-3" width="75" height="75" viewBox="0 0 75 75">
+        <path d="M 37.5 65 C 20 52 8 40 8 26 C 8 14 16 6 25 6 C 32 6 37.5 10 37.5 10 C 37.5 10 43 6 50 6 C 59 6 67 14 67 26 C 67 40 55 52 37.5 65 Z" fill="#d4c7e8" opacity="0.6"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-4" width="55" height="55" viewBox="0 0 55 55">
+        <path d="M 27.5 50 C 15 40 5 30 5 20 C 5 12 11 6 18 6 C 23 6 27.5 10 27.5 10 C 27.5 10 32 6 37 6 C 44 6 50 12 50 20 C 50 30 40 40 27.5 50 Z" fill="#b8a8d8" opacity="0.7"/>
+    </svg>
+
+    <svg class="svg-decoration svg-star-1" width="50" height="50" viewBox="0 0 50 50">
+        <polygon points="25,5 30,20 45,20 35,28 40,43 25,35 10,43 15,28 5,20 20,20" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-star-2" width="60" height="60" viewBox="0 0 60 60">
+        <polygon points="30,8 36,25 54,25 40,35 46,52 30,42 14,52 20,35 6,25 24,25" fill="#b8a8d8" opacity="0.8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-flower-5" width="65" height="65" viewBox="0 0 70 70">
+        <circle cx="35" cy="35" r="6" fill="#d4c7e8"/>
+        <circle cx="35" cy="13" r="5" fill="#b8a8d8"/>
+        <circle cx="52" cy="22" r="5" fill="#b8a8d8"/>
+        <circle cx="57" cy="40" r="5" fill="#b8a8d8"/>
+        <circle cx="48" cy="58" r="5" fill="#b8a8d8"/>
+        <circle cx="28" cy="63" r="5" fill="#b8a8d8"/>
+        <circle cx="10" cy="52" r="5" fill="#b8a8d8"/>
+        <circle cx="7" cy="28" r="5" fill="#b8a8d8"/>
+        <circle cx="18" cy="13" r="5" fill="#b8a8d8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-5" width="50" height="50" viewBox="0 0 50 50">
+        <path d="M 25 45 C 12 35 5 28 5 18 C 5 10 11 4 17 4 C 21 4 25 7 25 7 C 25 7 29 4 33 4 C 39 4 45 10 45 18 C 45 28 38 35 25 45 Z" fill="#d4c7e8" opacity="0.7"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-6" width="65" height="65" viewBox="0 0 70 70">
+        <path d="M 35 60 C 20 50 10 40 10 28 C 10 18 18 10 25 10 C 30 10 35 14 35 14 C 35 14 40 10 45 10 C 52 10 60 18 60 28 C 60 40 50 50 35 60 Z" fill="#b8a8d8" opacity="0.8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-star-3" width="45" height="45" viewBox="0 0 50 50">
+        <polygon points="25,5 30,20 45,20 35,28 40,43 25,35 10,43 15,28 5,20 20,20" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-star-4" width="55" height="55" viewBox="0 0 60 60">
+        <polygon points="30,8 36,25 54,25 40,35 46,52 30,42 14,52 20,35 6,25 24,25" fill="#b8a8d8" opacity="0.7"/>
+    </svg>
+
+    <svg class="svg-decoration svg-flower-6" width="75" height="75" viewBox="0 0 80 80">
+        <circle cx="40" cy="40" r="8" fill="#b8a8d8"/>
+        <circle cx="40" cy="15" r="6" fill="#d4c7e8"/>
+        <circle cx="60" cy="25" r="6" fill="#d4c7e8"/>
+        <circle cx="65" cy="45" r="6" fill="#d4c7e8"/>
+        <circle cx="55" cy="62" r="6" fill="#d4c7e8"/>
+        <circle cx="35" cy="68" r="6" fill="#d4c7e8"/>
+        <circle cx="15" cy="58" r="6" fill="#d4c7e8"/>
+        <circle cx="10" cy="35" r="6" fill="#d4c7e8"/>
+        <circle cx="20" cy="18" r="6" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-flower-7" width="70" height="70" viewBox="0 0 70 70">
+        <circle cx="35" cy="35" r="7" fill="#b8a8d8"/>
+        <circle cx="35" cy="12" r="5" fill="#d4c7e8"/>
+        <circle cx="53" cy="20" r="5" fill="#d4c7e8"/>
+        <circle cx="58" cy="40" r="5" fill="#d4c7e8"/>
+        <circle cx="50" cy="57" r="5" fill="#d4c7e8"/>
+        <circle cx="30" cy="62" r="5" fill="#d4c7e8"/>
+        <circle cx="12" cy="52" r="5" fill="#d4c7e8"/>
+        <circle cx="7" cy="30" r="5" fill="#d4c7e8"/>
+        <circle cx="17" cy="15" r="5" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-7" width="60" height="60" viewBox="0 0 70 70">
+        <path d="M 35 60 C 20 50 10 40 10 28 C 10 18 18 10 25 10 C 30 10 35 14 35 14 C 35 14 40 10 45 10 C 52 10 60 18 60 28 C 60 40 50 50 35 60 Z" fill="#b8a8d8" opacity="0.8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-heart-8" width="65" height="65" viewBox="0 0 75 75">
+        <path d="M 37.5 65 C 20 52 8 40 8 26 C 8 14 16 6 25 6 C 32 6 37.5 10 37.5 10 C 37.5 10 43 6 50 6 C 59 6 67 14 67 26 C 67 40 55 52 37.5 65 Z" fill="#d4c7e8" opacity="0.6"/>
+    </svg>
+
+    <svg class="svg-decoration svg-star-5" width="50" height="50" viewBox="0 0 50 50">
+        <polygon points="25,5 30,20 45,20 35,28 40,43 25,35 10,43 15,28 5,20 20,20" fill="#d4c7e8"/>
+    </svg>
+
+    <svg class="svg-decoration svg-star-6" width="55" height="55" viewBox="0 0 60 60">
+        <polygon points="30,8 36,25 54,25 40,35 46,52 30,42 14,52 20,35 6,25 24,25" fill="#b8a8d8" opacity="0.8"/>
+    </svg>
+
+    <!-- Украшения -->
+    <div class="flower-decoration flower-1">💐</div>
+    <div class="flower-decoration flower-2">🌹</div>
+    <div class="flower-decoration flower-3">🌺</div>
+    <div class="flower-decoration flower-4">💐</div>
+
+    <!-- Заголовок -->
+    <header>
+        <h1>С днем 8 Марта</h1>
+        <p class="subtitle">Для самой лучшей девушки на всём белом свете</p>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Комплименты -->
+        <section class="compliments-section">
+            <h2 class="section-title">Вот что я хочу сказать о тебе</h2>
+            <div class="compliments-carousel">
+                <div class="carousel-container" id="carouselContainer">
+                    <div class="compliment-card active">
+                        <div class="compliment-text">Нет ничего лучше чем видеть тебя в хорошем настроении</div>
+                    </div>
+                    <div class="compliment-card">
+                        <div class="compliment-text">Твой позитив и отношение к миру вдохновляют меня каждый день</div>
+                    </div>
+                    <div class="compliment-card">
+                        <div class="compliment-text">Не хватит слов чтобы описать насколько ты красивая</div>
+                    </div>
+                    <div class="compliment-card">
+                        <div class="compliment-text">Ты солнышко☀️</div>
+                    </div> 
+                    <div class="compliment-card">
+                        <div class="compliment-text">Спасибо тебе за всё!</div>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="prevCompliment()">←</button>
+                    <button class="carousel-btn" onclick="nextCompliment()">→</button>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+            </div>
+        </section>
+
+        <!-- Галерея фотографий -->
+        <section class="gallery-section">
+            <h2 class="section-title">Some photos</h2>
+            <div class="gallery-info">
+                ℹ️ <strong>Совет:</strong> Нажми на любую фото, чтобы посмотреть её побольше!
+                <button class="action-button" onclick="shufflePhotos()" style="display: block; margin: 15px auto 0;"> Перемешать</button>
+            </div>
+            <div class="gallery-grid" id="gallery">
+                <!-- Фото загружаются динамически из папки photos -->
+            </div>
+        </section>
+
+        <!-- Пожелания -->
+        <section class="wishes-section">
+            <h2 class="section-title">открыточка</h2>
+            <div class="wish-text">
+                Дорогая, Ева!<br><br>
+                Я хочу пожелать тебе всего самого лучшего и очень надеюсь что ты рада присутствовать на этом сайте.
+                Пусть каждый день твоей жизни будет наполнен радостью, улыбками и любовью.
+                <br><br>
+                Спасибо за то, что ты есть в моей жизни. Ты - мой самый большой подарок,
+                и я буду благодарен за каждый момент, проведенный рядом с тобой, все эти моменты волшебные.
+                <br><br>
+                Люблю тебя!
+            </div>
+            <div class="signature">Твой Богдан</div>
+        </section>
+    </div>
+
+    <!-- Модальное окно для просмотра фото во весь размер -->
+    <div id="photoViewModal" class="photo-modal">
+        <div class="photo-modal-content">
+            <span class="photo-close" onclick="closePhotoView()">&times;</span>
+            <div id="photoHashtags" style="text-align: center; margin-bottom: 10px; color: #000; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;"></div>
+            <img id="photoViewImage" src="" alt="Просмотр фото">
+        </div>
+    </div>
+
+    <script src="photos_data.js"></script>
+    <script>
+        const photoModal = document.getElementById('photoModal');
+        const photoViewModal = document.getElementById('photoViewModal');
+        const photoFile = document.getElementById('photoFile');
+        const photoName = document.getElementById('photoName');
+        const gallery = document.getElementById('gallery');
+
+        // Получить случайное число в диапазоне
+        function getRandomBetween(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Расположить фото в сетке с наклонами
+        function randomizePhotoPosition(photoElement, index) {
+            const containerWidth = gallery.offsetWidth;
+            const containerHeight = gallery.offsetHeight;
+            const photoWidth = photoElement.offsetWidth;
+            const photoHeight = photoElement.offsetHeight;
+
+            let x, y;
+
+            // Для десктопа - более естественное расположение (часть слева, часть справа)
+            if (containerWidth > 768) {
+                // Распределяем фото по трём зонам: левая (0-30%), центр (35-65%), правая (70-100%)
+                const zoneWidth = containerWidth / 3;
+                const zone = index % 3; // 0 = левая, 1 = центр, 2 = правая
+
+                if (zone === 0) {
+                    // Левая zona
+                    x = getRandomBetween(20, zoneWidth - photoWidth - 20);
+                } else if (zone === 1) {
+                    // Центральная zona
+                    x = getRandomBetween(zoneWidth, 2 * zoneWidth - photoWidth);
+                } else {
+                    // Правая zona
+                    x = getRandomBetween(2 * zoneWidth + 20, containerWidth - photoWidth - 20);
+                }
+
+                // Случайно по высоте
+                y = getRandomBetween(20, containerHeight - photoHeight - 20);
+            } else {
+                // Для мобилки - сетка как раньше
+                const cols = 3;
+                const cellWidth = containerWidth / cols;
+                const cellHeight = photoHeight + 5;
+
+                const col = index % cols;
+                const row = Math.floor(index / cols);
+
+                x = col * cellWidth + (cellWidth - photoWidth) / 2;
+                y = row * cellHeight + 20;
+
+                // Добавляем небольшое смещение
+                x += getRandomBetween(-10, 10);
+                y += getRandomBetween(-10, 10);
+            }
+
+            // Ограничиваем координаты
+            x = Math.max(0, Math.min(x, containerWidth - photoWidth));
+            y = Math.max(0, Math.min(y, containerHeight - photoHeight));
+
+            // 50% фото - наклонены, 50% - прямые
+            let rotation;
+            if (Math.random() > 0.5) {
+                rotation = getRandomBetween(-15, 15);
+            } else {
+                rotation = 0;
+            }
+
+            // z-index в порядке слоёв
+            const zIndex = index;
+
+            photoElement.style.left = x + 'px';
+            photoElement.style.top = y + 'px';
+            photoElement.style.transform = `rotate(${rotation}deg)`;
+            photoElement.style.zIndex = zIndex;
+        }
+
+        // Применить позицию ко всем фото
+        function applyRandomPositions() {
+            const placeholders = gallery.querySelectorAll('.photo-placeholder');
+            placeholders.forEach((photo, index) => {
+                randomizePhotoPosition(photo, index);
+            });
+        }
+
+        function openPhotoModal() {
+            photoModal.classList.add('active');
+        }
+
+        function closePhotoModal() {
+            photoModal.classList.remove('active');
+            photoFile.value = '';
+            photoName.value = '';
+        }
+
+        function openPhotoView(imageSrc, hashtags = '') {
+            console.log('Opening photo:', imageSrc);
+            photoViewModal.classList.add('active');
+            document.getElementById('photoViewImage').src = imageSrc;
+            document.getElementById('photoHashtags').textContent = hashtags;
+        }
+
+        function closePhotoView() {
+            photoViewModal.classList.remove('active');
+            document.getElementById('photoViewImage').src = '';
+            document.getElementById('photoHashtags').textContent = '';
+        }
+
+        // Загрузить фотографии из Base64 данных
+        function loadPhotosFromBase64() {
+            if (typeof photoBase64 === 'undefined' || photoBase64.length === 0) {
+                gallery.innerHTML = '<p style="text-align: center; padding: 40px; color: red;">Ошибка: фотографии не загружены</p>';
+                return;
+            }
+
+            gallery.innerHTML = '';
+
+            photoBase64.forEach((dataUrl, index) => {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'photo-placeholder loaded';
+
+                // Каждой фотографии соответствует свой хэштег
+                const photoHashtags = ['#нет_слов', '#подарочек', '#эстетично_грущу', '#кайфовая', '#smile', '#в_театре', '#бывает', '#с_кумиром', '#персик', '#красотка', '#уточка', '#любовь', '#спрятался', '#приветливая'];
+                const hashtagsText = photoHashtags[index % photoHashtags.length];
+
+                photoDiv.innerHTML = `
+                    <img src="${dataUrl}"
+                         style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;"
+                         onclick="openPhotoView('${dataUrl}', '${hashtagsText}')"
+                         alt="Фото"
+                         data-hashtags="${hashtagsText}">
+                `;
+                gallery.appendChild(photoDiv);
+            });
+
+            // Применить случайные позиции после загрузки изображений
+            setTimeout(() => {
+                applyRandomPositions();
+            }, 100);
+        }
+
+        function shufflePhotos() {
+            applyRandomPositions();
+        }
+
+        function uploadPhoto() {
+            const file = photoFile.files[0];
+            if (!file) {
+                alert('Пожалуйста, выбери фото');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'photo-placeholder loaded';
+                const photoName = document.getElementById('photoName').value || 'Момент';
+
+                // Извлекаем хэштеги из названия фото (слова начинающиеся с #)
+                const hashtags = photoName.match(/#\S+/g) || [];
+                const hashtagsText = hashtags.length > 0 ? hashtags[0] : '#memory';
+
+                photoDiv.innerHTML = `
+                    <img src="${e.target.result}"
+                         style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;"
+                         onclick="openPhotoView(this.src, '${hashtagsText}')"
+                         alt="Фото"
+                         data-hashtags="${hashtagsText}">
+                `;
+                photoDiv.style.borderStyle = 'solid';
+                gallery.appendChild(photoDiv);
+                randomizePhotoPosition(photoDiv);
+
+                closePhotoModal();
+                alert('Фото успешно добавлено! 🎉');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Закрыть модальные окна при клике вне их
+        window.onclick = function(event) {
+            if (event.target === photoModal) {
+                closePhotoModal();
+            }
+            if (event.target === photoViewModal) {
+                closePhotoView();
+            }
+        }
+
+        // Закрыть модальное окно просмотра при нажатии Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePhotoView();
+            }
+        });
+
+        // Переприменить позиции при изменении размера окна
+        window.addEventListener('resize', function() {
+            applyRandomPositions();
+        });
+
+        // Загрузить фотографии при загрузке страницы
+        window.addEventListener('load', function() {
+            loadPhotosFromBase64();
+            initCarousel();
+        });
+
+        /* ===== КАРУСЕЛЬ КОМПЛИМЕНТОВ ===== */
+        let currentComplimentIndex = 0;
+        const complimentCards = document.querySelectorAll('.compliment-card');
+        const totalCompliments = complimentCards.length;
+
+        function initCarousel() {
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+
+            // Создаём индикаторы
+            for (let i = 0; i < totalCompliments; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'carousel-indicator';
+                if (i === 0) indicator.classList.add('active');
+                indicator.onclick = () => goToCompliment(i);
+                indicatorsContainer.appendChild(indicator);
+            }
+
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            // Обновляем карточки
+            complimentCards.forEach((card, index) => {
+                card.classList.remove('active', 'prev', 'next');
+
+                if (index === currentComplimentIndex) {
+                    card.classList.add('active');
+                } else if (index < currentComplimentIndex) {
+                    card.classList.add('prev');
+                } else {
+                    card.classList.add('next');
+                }
+            });
+
+            // Обновляем индикаторы
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentComplimentIndex);
+            });
+        }
+
+        function nextCompliment() {
+            currentComplimentIndex = (currentComplimentIndex + 1) % totalCompliments;
+            updateCarousel();
+        }
+
+        function prevCompliment() {
+            currentComplimentIndex = (currentComplimentIndex - 1 + totalCompliments) % totalCompliments;
+            updateCarousel();
+        }
+
+        function goToCompliment(index) {
+            currentComplimentIndex = index;
+            updateCarousel();
+        }
+
+        // Клавиатурная навигация
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                nextCompliment();
+                event.preventDefault();
+            } else if (event.key === 'ArrowLeft') {
+                prevCompliment();
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
